@@ -1,0 +1,23 @@
+@import './custom_colors.scss';
+
+.home {
+    background-color: $custom-black!important;
+    min-height: calc(100vh - 70px);
+}
+
+.form-label {
+    color: #5AED83;
+}
+  
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+}
+
+.green-button{
+    color: white;
+}
+
+.chakra-button{
+    color: $custom-green;
+}

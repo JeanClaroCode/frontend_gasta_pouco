@@ -1,0 +1,15 @@
+@charset 'utf-8';
+@import "./styles/custom_colors.scss";
+/* No seu CSS */
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&display=swap');
+
+
+$custom-colors: (
+  "custom-green": $custom-green,
+  "custom-black": $custom-black
+);
+
+body {
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 20px;
+}

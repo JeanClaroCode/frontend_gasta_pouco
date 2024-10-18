@@ -8,7 +8,7 @@ import TransactionService from "../../../../services/transaction";
 /*import TransactionService from "../../../services/transaction"*/
 
 const transactionSchema = z.object({
-  type: z.string().default('income'),
+  type: z.string(),
   amount: z.union([z.string(), z.number()])
     .refine((value) => !isNaN(Number(value)), {
       message: "O valor deve ser um número válido",
@@ -45,15 +45,15 @@ const IncomeEditForm = ({ onTransactionCreate, transaction}) => {
       useEffect(() => {
         if (transaction) {
           reset({
-            type: transaction.type || 'income',
+            type: transaction.type? 'income' : 'expense',
             amount: transaction.amount || '',
             category: transaction.category || '',
             date: formatDate(transaction.date) || '',
             description: transaction.description || '',
           });
+          console.log(`TIPOOO : ${transaction.type}`)
         }
       }, [transaction, reset]);
-    
       const onSubmit = async (data) => {
         try {
           // Lógica para editar a transação

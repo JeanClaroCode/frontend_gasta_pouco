@@ -39,6 +39,9 @@ const TransactionService = {
     }),
     Edit: (id, transactionData) => Api.put(`/transactions/${id}`,transactionData, {
         headers: { "x-access-token": localStorage.getItem("token") },
+    }),
+    Delete: (id) => Api.delete(`/transactions/${id}`,{ 
+        headers: { "x-access-token": localStorage.getItem("token") },
     })
 }
 

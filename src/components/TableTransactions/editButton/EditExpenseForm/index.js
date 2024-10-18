@@ -1,26 +1,35 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, CloseButton, FormControl, FormLabel, Input, Select, Textarea } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
+import moment from "moment";
+import TransactionService from "../../../../services/transaction";
 /*import TransactionService from "../../../services/transaction";*/
 
 const transactionSchema = z.object({
-  type: z.string().default('expense'),
+  type: z.string(),
   amount: z.union([z.string(), z.number()])
     .refine((value) => !isNaN(Number(value)), {
       message: "O valor deve ser um número válido",
     })
     .transform((value) => Number(value)),
   category: z.string(),
-  date: z.string(), // Ajustado para string já que o input de data retorna string
+  date: z.string(), 
   description: z.string(),
 });
 
-const ExpenseEditForm = ({date, amount, description, category}) => {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+
+const ExpenseEditForm = ({onTransactionCreate, transaction }) => {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: zodResolver(transactionSchema),
   });
+
+  const formatDate = (isoDate) => {
+    const formatingDate = moment.utc(isoDate).format('YYYY/MM/DD')
+    const formattedDate = formatingDate.replace(/\//g, "-");
+    return formattedDate
+  }
 
   const expenseCategories = [
     { value: "Mercado", label: "Mercado" },
@@ -37,10 +46,23 @@ const ExpenseEditForm = ({date, amount, description, category}) => {
 
   const [showAlert, setShowAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  /*
+  
+  useEffect(() => {
+    if(transaction) {
+      reset ({
+        type: transaction.type? 'expense' : 'income',
+        amount: transaction.amount || '',
+        category: transaction.category || '',
+        date: formatDate(transaction.date) || '',
+        description: transaction.description || '',
+      })
+    }
+  }, [transaction, reset]);
+
   const onSubmit = async (data) => {
     try {
-      const transaction = await TransactionService.create(data);
+      const editedTransaction = await TransactionService.Edit(transaction._id, data);
+      onTransactionCreate(editedTransaction.data)
       console.log("Transação registrada:", transaction);
       setIsSuccess(true);
       setShowAlert(true);
@@ -50,7 +72,7 @@ const ExpenseEditForm = ({date, amount, description, category}) => {
       setShowAlert(true);
     }
   };
-*/
+
 
   return (
     <>
@@ -75,16 +97,16 @@ const ExpenseEditForm = ({date, amount, description, category}) => {
         </Alert>
       )}
       
-      <Box as="form" /*onSubmit={handleSubmit(onSubmit)}*/ borderRadius="md" color="white" display="flex" flexDirection="column" alignItems="flex-start" width="250px">
+      <Box as="form" onSubmit={handleSubmit(onSubmit)} borderRadius="md" color="white" display="flex" flexDirection="column" alignItems="flex-start" width="250px">
       <FormControl display="flex" mt={1}> 
         <FormControl alignItems="center" mr={3}> 
           <FormLabel color="white" mb={0}>Valor</FormLabel>
-          <Input placeholder="R$" type="number" width="98px" value={amount? amount : ""} {...register("amount")} />
+          <Input placeholder="R$" type="number" width="98px"  {...register("amount")} />
           {errors.amount && <p>{errors.amount.message}</p>}
         </FormControl>
 
         <FormControl mt={6}>
-          <Select placeholder="Categoria" bg="white" color="black" width="140px" border="3px solid" borderColor="#F87C7C" value={category? category : ""} {...register("category")}>
+          <Select placeholder="Categoria" bg="white" color="black" width="140px" border="3px solid" borderColor="#F87C7C" {...register("category")}>
             {expenseCategories.map((expense, index) => (
               <option key={index} value={expense.value}>
                 {expense.label}
@@ -96,12 +118,12 @@ const ExpenseEditForm = ({date, amount, description, category}) => {
       </FormControl>
 
         <FormControl mt={4} bg="white" color="black" borderRadius="10px">
-          <Input placeholder='Select Date' size='md' type='date' value={date? date : " "} {...register("date")} />
+          <Input placeholder='Select Date' size='md' type='date' {...register("date")} />
           {errors.date && <p>{errors.date.message}</p>}
         </FormControl>
 
         <FormControl mt={5}>
-          <Textarea bg="white" color="black" placeholder="Descreva o item aqui..." height="100px" value={description? description : ""} {...register("description")} />
+          <Textarea bg="white" color="black" placeholder="Descreva o item aqui..." height="100px"  {...register("description")} />
           {errors.description && <p>{errors.description.message}</p>}
         </FormControl>
 

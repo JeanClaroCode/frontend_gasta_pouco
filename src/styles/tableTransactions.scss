@@ -1,3 +1,81 @@
+// Variáveis de cor e tamanho
+$primary-color: #D3D3D3;
+$income-color: #5AED83;
+$expense-color: #F87C7C;
+
+// Estilos básicos
+.card {
+    background-color: $primary-color;
+    width: 1095px;
+    margin: auto;
+    padding: 16px;
+    border-radius: 20px;
+
+    @media (max-width: 1200px) {
+        width: 90%; // Reduz a largura em telas menores
+    }
+}
+
+.table {
+    width: 100%;
+
+    th, td {
+        text-align: center;
+        padding: 10px;
+
+        @media (max-width: 768px) {
+            font-size: 14px; // Tamanho da fonte para telas menores
+        }
+
+        @media (max-width: 480px) {
+            font-size: 12px; // Tamanho da fonte para dispositivos móveis
+        }
+    }
+}
+
+// Estilos para os botões
+.button {
+    max-width: 80px;
+
+    @media (max-width: 768px) {
+        width: 100px; // Ajusta a largura dos botões em telas menores
+    }
+}
+
+// Estilos para a barra de pesquisa
+.search-bar {
+    margin-bottom: 16px;
+
+    @media (max-width: 768px) {
+        font-size: 14px; // Tamanho da fonte para a barra de pesquisa em telas menores
+    }
+}
+
+// Estilos para mensagens
+.no-transactions {
+    font-size: 30px;
+
+    @media (max-width: 768px) {
+        font-size: 24px; // Tamanho da fonte em telas menores
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px; // Tamanho da fonte para dispositivos móveis
+    }
+}
+
+// Ajustes para o layout
+@media (max-width: 768px) {
+    .table {
+        font-size: 14px; // Reduz o tamanho da fonte geral
+    }
+
+    .card {
+        padding: 8px; // Reduz o padding
+    }
+}
+
+
 .soLongText{
     overflow-wrap: break-word; /* Quebra apenas entre palavras */
     word-break: normal; /* Evita quebre no meio de palavras */

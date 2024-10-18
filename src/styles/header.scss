@@ -1,0 +1,20 @@
+/* Exemplo de animação */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.background-animation {
+    position: fixed; /* Fica fixa na tela */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1F1717; /* Cor de fundo escuro */
+    animation: slideDown 0.5s ease-in-out forwards; /* Animação para descer */
+    z-index: 0; /* Fica atrás de outros elementos */
+}

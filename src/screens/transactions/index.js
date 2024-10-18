@@ -10,6 +10,7 @@ import TransactionController from "../../components/TransactionController";
 
 
 const TransactionsScreen = () => {
+    const textColor = '#1F1717';
     return (
         <TransactionController
             render={({ transactionsData, filteredTransactions, loading, error, currentPage, totalPages, changePage, handleMonthChange, handleTransactionCreate, totalTransaction, totalIncomeTransaction, totalExpenseTransaction, handleInputChange, errorFilter, query }) => (
@@ -22,7 +23,7 @@ const TransactionsScreen = () => {
                         dataTotalExpense={totalExpenseTransaction}
                         />
                     </Box>
-                    <Flex align="center" width="1040px" mx="auto" justify="space-between">
+                    <Flex align="center" maxWidth="1040px" mx="auto" flexDirection={{ base: "column", md: "row" }} justify="space-between">
                         <MonthYearDropDown onMonthChange={handleMonthChange} /> {/* Passa a função para mudar o mês */}
                         <ButtonCreateTransaction onTransactionCreate={handleTransactionCreate} /> {/* Atualiza as transações após criar */}
                     </Flex>

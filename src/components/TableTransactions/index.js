@@ -8,13 +8,14 @@ import moment from 'moment';
 import '../../styles/tableTransactions.scss'
 import ButtonCreateTransaction from "../createTransactionButton";
 import EditButton from "./editButton";
+import DeleteButton from "./deleteButton";
 
 const TableTransaction = ({ data, currentPage, setCurrentPage, handleInputChange, errorFilter, query, onTransactionCreate }) => { 
     const [transaction, setTransaction] = useState(data || []); 
     const [editingTransaction, setEditingTransaction] = useState(null);
     const itemsPerPage = 4;
     const [loading, setLoading] = useState(true); 
-
+    const textColor = '#1F1717'
     useEffect(() => {
         setLoading(true); // Inicia o loading ao receber novos dados
         setTransaction(data)
@@ -58,7 +59,7 @@ const TableTransaction = ({ data, currentPage, setCurrentPage, handleInputChange
                     objectFit="fill"
                     mx="auto" 
                 > 
-                    <Box> 
+                    <Box color="#F87C7C"> 
                         No transactions available. 
                     </Box>
                     <Box mt="10px">
@@ -81,12 +82,12 @@ const TableTransaction = ({ data, currentPage, setCurrentPage, handleInputChange
                 <CircularProgress isIndeterminate color='green.300' size="50px" />
             </Box>
         ) : (
-        <Card bg="#D3D3D3" width="1095px" mx="auto" p="4" borderRadius="20px">
+        <Card bg="#D3D3D3" maxWidth="1095px" mx="auto" p="4" borderRadius="20px">
             <Box mb="4">
                 <SearchBar onSearch={handleInputChange} query={query}/>
                 {errorFilter && <Box color="red" mt="2" set>{errorFilter}</Box>} 
             </Box>
-            <TableContainer width="1040px" mx="auto">
+            <TableContainer color={textColor} width="1040px" mx="auto">
                 <Table variant='simple' width="100%">
                     <Thead>
                         <Tr borderBottom="3px solid #A4A4A4" borderTop="3px solid #A4A4A4" alignItems="center" justifyContent="center" >
@@ -122,7 +123,7 @@ const TableTransaction = ({ data, currentPage, setCurrentPage, handleInputChange
                             <Tr key={transaction._id} borderBottom="3px solid #A4A4A4" >
                                 <Td p="5px" width="155px" height="40px" >
                                     <Box display="flex" alignItems="center" justifyContent="center" > 
-                                    <Button width="150px" bg={typeColors[transaction.type]}>
+                                    <Button color={textColor} width="150px" bg={typeColors[transaction.type]}>
                                         {transaction.type === "income" ? "Ganhos" : "Gastos"}
                                     </Button>
                                     </Box>
@@ -146,12 +147,10 @@ const TableTransaction = ({ data, currentPage, setCurrentPage, handleInputChange
                                         {transaction.description}
                                     </Box>
                                 </Td>
-                                <Td p="0" width="80px" className="table-cell" >
-                                    <Box display="flex" border="0" height="auto" justifyContent="flex-end" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                                <Td p="0" maxWidth="80px" className="table-cell" border="2px solid purple" >
+                                    <Box border="2px solid yellow" display="flex" height="auto" justifyContent="flex-end" flexDirection="row" alignItems="center">
                                         <EditButton transactionId={transaction._id} onTransactionCreate={onTransactionCreate} />
-                                        <Button className="button" aria-label="Delete Button">
-                                            <FontAwesomeIcon icon={faTrash} style={{ fontSize: '15px' }} />
-                                        </Button>       
+                                        <DeleteButton transactionId={transaction._id} onTransactionCreate={onTransactionCreate}/>    
                                     </Box> 
                                 </Td>
                             </Tr> 
@@ -173,7 +172,7 @@ const TableTransaction = ({ data, currentPage, setCurrentPage, handleInputChange
                 >
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Button>
-                <Box>
+                <Box color={textColor}>
                     Page {currentPage} of {totalPages}
                 </Box>
                 <Button

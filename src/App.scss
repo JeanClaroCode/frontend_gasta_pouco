@@ -13,3 +13,18 @@ body {
   font-family: 'Lexend Deca', sans-serif;
   font-size: 20px;
 }
+/* Para dispositivos móveis */
+@media (max-width: 600px) {
+  .header {
+    font-size: 14px;
+    flex-direction: column;
+  }
+}
+
+/* Para tablets e desktops */
+@media (min-width: 601px) {
+  .header {
+    font-size: 20px;
+    flex-direction: row;
+  }
+}

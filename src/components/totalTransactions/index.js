@@ -7,6 +7,7 @@ const CardsTotalTransactions = ({dataTotal, dataTotalIncome, dataTotalExpense}) 
     const [error, setError] = useState(null)
     const [dataIncome, setDataIncome] = useState(null)
     const [dataExpense, setDataExpense] = useState(null)
+    const textColor = '#1F1717';
 
   /* const grandTotal = async () => {
         try {
@@ -73,7 +74,7 @@ const CardsTotalTransactions = ({dataTotal, dataTotalIncome, dataTotalExpense}) 
       >
         
 
-        <Card 
+        <Card color={textColor}
           backgroundColor='#5AED83' 
           width="301px" 
           height="114px"
@@ -94,7 +95,7 @@ const CardsTotalTransactions = ({dataTotal, dataTotalIncome, dataTotalExpense}) 
             </Flex>
           </CardBody>
         </Card>
-        <Card 
+        <Card color={textColor}
           backgroundColor='#F87C7C' 
           width="301px" 
           height="114px"
@@ -117,7 +118,7 @@ const CardsTotalTransactions = ({dataTotal, dataTotalIncome, dataTotalExpense}) 
         </Card>
 
 
-        <Card 
+        <Card color={textColor}
           backgroundColor='#D9D9D9' 
           width="301px" 
           height="114px"

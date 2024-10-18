@@ -14,7 +14,7 @@ const EditButton = ({ transactionId, onTransactionCreate}) => {
     return ( 
         <> 
         <Flex>
-            <Button className="button" aria-label="Edit Button" onClick={onOpen}>
+            <Button p='0' m='0' display="block" className="button" aria-label="Edit Button" onClick={onOpen}>
                 <FontAwesomeIcon icon={faPen} style={{ fontSize: '15px' }} /*onClick={() => handleEdit(transaction)}*/ />
             </Button>
             <Modal

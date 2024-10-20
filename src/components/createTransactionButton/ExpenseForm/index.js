@@ -17,7 +17,7 @@ const transactionSchema = z.object({
   description: z.string(),
 });
 
-const ExpenseForm = () => {
+const ExpenseForm = ({onTransactionCreate}) => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(transactionSchema),
   });
@@ -41,6 +41,7 @@ const ExpenseForm = () => {
   const onSubmit = async (data) => {
     try {
       const transaction = await TransactionService.create(data);
+      onTransactionCreate(transaction.data)
       console.log("Transação registrada:", transaction);
       setIsSuccess(true);
       setShowAlert(true);

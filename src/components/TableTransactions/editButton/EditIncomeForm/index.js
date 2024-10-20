@@ -45,7 +45,7 @@ const IncomeEditForm = ({ onTransactionCreate, transaction}) => {
       useEffect(() => {
         if (transaction) {
           reset({
-            type: transaction.type === 'income' ? 'income' : 'expense',
+            type: transaction.type? 'income' : 'expense',
             amount: transaction.amount || '',
             category: transaction.category || '',
             date: formatDate(transaction.date) || '',

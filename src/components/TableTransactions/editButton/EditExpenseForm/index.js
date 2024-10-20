@@ -50,7 +50,7 @@ const ExpenseEditForm = ({onTransactionCreate, transaction }) => {
   useEffect(() => {
     if(transaction) {
       reset ({
-        type: transaction.type? 'expense' : 'income',
+        type: transaction.type === 'expense'? 'expense' : 'income',
         amount: transaction.amount || '',
         category: transaction.category || '',
         date: formatDate(transaction.date) || '',
@@ -62,6 +62,7 @@ const ExpenseEditForm = ({onTransactionCreate, transaction }) => {
   const onSubmit = async (data) => {
     try {
       const editedTransaction = await TransactionService.Edit(transaction._id, data);
+      console.log("Transação editada com sucesso:", editedTransaction.data);
       onTransactionCreate(editedTransaction.data)
       console.log("Transação registrada:", transaction);
       setIsSuccess(true);

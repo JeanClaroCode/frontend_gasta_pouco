@@ -147,8 +147,8 @@ const TableTransaction = ({ data, currentPage, setCurrentPage, handleInputChange
                                         {transaction.description}
                                     </Box>
                                 </Td>
-                                <Td p="0" maxWidth="80px" className="table-cell" border="2px solid purple" >
-                                    <Box border="2px solid yellow" display="flex" height="auto" justifyContent="flex-end" flexDirection="row" alignItems="center">
+                                <Td p="0" maxWidth="80px" className="table-cell" >
+                                    <Box display="flex" height="auto" justifyContent="flex-end" flexDirection="row" alignItems="center">
                                         <EditButton transactionId={transaction._id} onTransactionCreate={onTransactionCreate} />
                                         <DeleteButton transactionId={transaction._id} onTransactionCreate={onTransactionCreate}/>    
                                     </Box> 
